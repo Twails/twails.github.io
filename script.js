@@ -1,22 +1,51 @@
-const audioPlayer = document.getElementById('audioPlayer');
-const audioSource = document.getElementById('audioSource');
+document.addEventListener('DOMContentLoaded', () => {
+    const songInput = document.getElementById('songInput');
+    const addSongButton = document.getElementById('addSongButton');
+    const songList = document.getElementById('songList');
 
-let currentSongIndex = 0;
-const songs = [
-    { name: 'Песня 1', file: 'song1.mp3' },
-    { name: 'Песня 2', file: 'song2.mp3' },
-    { name: 'Песня 3', file: 'song3.mp3' }
-    // Добавьте больше песен по аналогии
-];
+    // Загрузка песен из localStorage
+    loadSongs();
 
-function playSong(songFile, songName) {
-    audioSource.src = songFile;
-    audioPlayer.load();
-    audioPlayer.play();
-    currentSongIndex = songs.findIndex(song => song.file === songFile);
-}
+    addSongButton.addEventListener('click', () => {
+        const songName = songInput.value.trim();
+        if (songName) {
+            addSong(songName);
+            songInput.value = '';
+        }
+    });
 
-audioPlayer.addEventListener('ended', function() {
-    currentSongIndex = (currentSongIndex + 1) % songs.length; // Переход к следующей песне
-    playSong(songs[currentSongIndex].file, songs[currentSongIndex].name);
+    function loadSongs() {
+        const songs = JSON.parse(localStorage.getItem('songs')) || [];
+        songs.forEach(song => {
+            addSongToList(song);
+        });
+    }
+
+    function addSong(songName) {
+        const songs = JSON.parse(localStorage.getItem('songs')) || [];
+        songs.push(songName);
+        localStorage.setItem('songs', JSON.stringify(songs));
+        addSongToList(songName);
+    }
+
+    function addSongToList(songName) {
+        const li = document.createElement('li');
+        li.textContent = songName;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Удалить';
+        deleteButton.addEventListener('click', () => {
+            deleteSong(songName, li);
+        });
+
+        li.appendChild(deleteButton);
+        songList.appendChild(li);
+    }
+
+    function deleteSong(songName, li) {
+        let songs = JSON.parse(localStorage.getItem('songs')) || [];
+        songs = songs.filter(song => song !== songName);
+        localStorage.setItem('songs', JSON.stringify(songs));
+        songList.removeChild(li);
+    }
 });
