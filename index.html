@@ -3,39 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Test</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-        }
-        .playlist {
-            list-style-type: none;
-            padding: 0;
-        }
-        .playlist li {
-            margin: 10px 0;
-        }
-    </style>
+    <title>Music test</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Music Test</h1>
-    <audio id="audioPlayer" controls>
-        <source id="audioSource" src="" type="audio/mpeg">
-        Ваш браузер не поддерживает аудиоплеер.
-    </audio>
-    <ul class="playlist" id="playlist">
-        <li><a href="#" onclick="playSong('song1.mp3', 'Песня 1')">tesdts</a></li>
-        <li><a href="#" onclick="playSong('song2.mp3', 'Песня 2')">test</a></li>
-        <li><a href="#" onclick="playSong('song3.mp3', 'Песня 3')">test</a></li>
-        <!-- Добавьте больше песен по аналогии -->
-    </ul>
-
+    <div class="container">
+        <h1>Music list</h1>
+        <input type="text" id="songInput" placeholder="Введите название песни">
+        <button id="addSongButton">Add song</button>
+        <ul id="songList"></ul>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
