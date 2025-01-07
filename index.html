@@ -1,12 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Twails Test</title>
+    <title>Music</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .playlist {
+            list-style-type: none;
+            padding: 0;
+        }
+        .playlist li {
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Тест</h1>
-    <p>Тестовый сайт</p>
+    <h1>Мой музыкальный плейлист</h1>
+    <audio id="audioPlayer" controls>
+        <source id="audioSource" src="" type="audio/mpeg">
+        Браузер не поддерживает плеер, лмао
+    </audio>
+    <ul class="playlist">
+        <li><a href="#" onclick="playSong('song1.mp3')">test1</a></li>
+        <li><a href="#" onclick="playSong('song2.mp3')">test2</a></li>
+        <li><a href="#" onclick="playSong('song3.mp3')">test3</a></li>
+        <!-- Добавьте больше песен по аналогии -->
+    </ul>
+
+    <script>
+        function playSong(song) {
+            var audioPlayer = document.getElementById('audioPlayer');
+            var audioSource = document.getElementById('audioSource');
+            audioSource.src = song;
+            audioPlayer.load();
+            audioPlayer.play();
+        }
+    </script>
 </body>
 </html>
