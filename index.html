@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music</title>
+    <title>MusicTest</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,26 +24,52 @@
     </style>
 </head>
 <body>
-    <h1>Мой музыкальный плейлист</h1>
+    <h1>Music Testing</h1>
     <audio id="audioPlayer" controls>
         <source id="audioSource" src="" type="audio/mpeg">
-        Браузер не поддерживает плеер, лмао
+        Браузер не поддерживает плеер, лмао.
     </audio>
-    <ul class="playlist">
-        <li><a href="#" onclick="playSong('song1.mp3')">test1</a></li>
-        <li><a href="#" onclick="playSong('song2.mp3')">test2</a></li>
-        <li><a href="#" onclick="playSong('song3.mp3')">test3</a></li>
-        <!-- Добавьте больше песен по аналогии -->
+    <ul class="playlist" id="playlist">
+        <!-- Песни будут добавляться сюда -->
     </ul>
 
+    <h2>Добавить песню</h2>
+    <form id="addSongForm">
+        <input type="text" id="songName" placeholder="Название песни" required>
+        <input type="file" id="songFile" accept="audio/mpeg" required>
+        <button type="submit">Добавить</button>
+    </form>
+
     <script>
+        const playlist = document.getElementById('playlist');
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioSource = document.getElementById('audioSource');
+
+        // Функция для воспроизведения песни
         function playSong(song) {
-            var audioPlayer = document.getElementById('audioPlayer');
-            var audioSource = document.getElementById('audioSource');
             audioSource.src = song;
             audioPlayer.load();
             audioPlayer.play();
         }
+
+        // Обработчик события для формы добавления песни
+        document.getElementById('addSongForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Предотвращаем отправку формы
+
+            const songName = document.getElementById('songName').value;
+            const songFile = document.getElementById('songFile').files[0];
+
+            // Создаем URL для загруженного файла
+            const songURL = URL.createObjectURL(songFile);
+
+            // Создаем элемент списка для новой песни
+            const li = document.createElement('li');
+            li.innerHTML = `<a href="#" onclick="playSong('${songURL}')">${songName}</a>`;
+            playlist.appendChild(li);
+
+            // Очищаем форму
+            document.getElementById('addSongForm').reset();
+        });
     </script>
 </body>
 </html>
