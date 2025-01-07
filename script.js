@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSongs();
 
     addSongButton.addEventListener('click', () => {
-        const songName = songInput.value.trim();
-        if (songName) {
-            addSong(songName);
-            songInput.value = '';
+        const file = songInput.files[0];
+        if (file) {
+            addSong(file.name);
+            songInput.value = ''; // Очистить поле после добавления
         }
     });
 
